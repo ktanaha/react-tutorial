@@ -12,5 +12,11 @@
     "babel-preset-react": "^6.24.1",
     "webpack": "^4.17.1",
     "webpack-dev-server": "^3.1.5"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.1.0"
+  },
+  "script": {
+    "start": "webpack-dev-server --mode development --open"
   }
 }
