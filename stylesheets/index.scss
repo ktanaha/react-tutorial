@@ -1,5 +1,8 @@
 $backgournd-color: #eee;
+$text-color: #444;
 
 body {
-    background-color: $backgournd-color;
+  background-color: $backgournd-color;
+  text-align: center;
+  color: $text-color;
 }
