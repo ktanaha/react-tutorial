@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class SearchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      place: "東京タワー"
+      place: '東京タワー',
     };
   }
 
@@ -32,7 +33,7 @@ class SearchForm extends Component {
 }
 
 SearchForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
