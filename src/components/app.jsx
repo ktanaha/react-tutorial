@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-import SearchForm from './SearchForm';
-import GeocodeResult from './GeocodeResult';
+import SearchForm from "./SearchForm";
+import GeocodeResult from "./GeocodeResult";
+import Map from "./Map";
 
-const GEOCODE_ENDPONT = 'https://maps.googleapis.com/maps/api/geocode/json';
+const GEOCODE_ENDPONT = "https://maps.googleapis.com/maps/api/geocode/json";
 
 class App extends Component {
   constructor(props) {
@@ -16,37 +17,37 @@ class App extends Component {
     this.setState({
       address: message,
       lat: 0,
-      lng: 0,
+      lng: 0
     });
   }
 
   handlePlaceSubmit(place) {
     axios
       .get(GEOCODE_ENDPONT, { params: { address: place } })
-      .then((results) => {
+      .then(results => {
         const data = results.data;
         const result = data.results[0];
         switch (data.status) {
-          case 'OK': {
+          case "OK": {
             const location = result.geometry.location;
             this.setState({
               address: result.formatted_address,
-              lat: location.lar,
-              lng: location.lng,
+              lat: location.lat,
+              lng: location.lng
             });
             break;
           }
-          case 'ZERO_RESULTS': {
-            this.setErrorMessage('見つかりませんでした');
+          case "ZERO_RESULTS": {
+            this.setErrorMessage("見つかりませんでした");
             break;
           }
           default: {
-            this.setErrorMessage('エラーが発生しました');
+            this.setErrorMessage("エラーが発生しました");
           }
         }
       })
-      .catch((error) => {
-        this.setErrorMessage('通信に失敗しました');
+      .catch(error => {
+        this.setErrorMessage("通信に失敗しました");
       });
   }
 
@@ -60,6 +61,7 @@ class App extends Component {
           lat={this.state.lat}
           lng={this.state.lng}
         />
+        <Map lat={this.state.lat} lng={this.state.lng} />
       </div>
     );
   }
