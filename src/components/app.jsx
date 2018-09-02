@@ -6,16 +6,14 @@ import Map from './Map';
 import HotelsTable from './HotelsTable';
 
 import { geocode } from '../domain/Geocoder';
+import { searchHotelByLocation } from '../domain/HotelRepository';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       location: { lat: 35.6585805, lng: 139.7454329 },
-      hotels: [
-        { id: 111, name: 'ホテルオークラ', url: 'https://google.com' },
-        { id: 222, name: 'アパホテル', url: 'https://google.com' },
-      ],
+      hotels: [],
     };
   }
 
@@ -35,7 +33,7 @@ class App extends Component {
         switch (status) {
           case 'OK': {
             this.setState({ address, location });
-            break;
+            return searchHotelByLocation(location);
           }
           case 'ZERO_RESULTS': {
             this.setErrorMessage('見つかりませんでした');
@@ -45,6 +43,10 @@ class App extends Component {
             this.setErrorMessage('エラーが発生しました');
           }
         }
+        return [];
+      })
+      .then((hotels) => {
+        this.setState({ hotels });
       })
       .catch(() => {
         this.setErrorMessage('通信に失敗しました');
