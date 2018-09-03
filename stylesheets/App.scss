@@ -1,13 +1,15 @@
+$base-margin: 40px;
+
 .app {
   width: 100%;
-  margin: 40px auto 0;
+  margin: $base-margin auto 0;
   display: flex;
 }
 
 .left-navi {
   list-style-type: none;
-  margin-right: 40px;
-  padding-right: 40px;
+  margin-right: $base-margin;
+  padding-right: $base-margin;
   border-right: 1px sokid #ccc;
 }
 
