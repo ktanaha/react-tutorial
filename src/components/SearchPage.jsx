@@ -52,12 +52,13 @@ class SearchPage extends Component {
     });
   }
 
-  handlePlaceChange(place) {
-    this.setState({ place });
+  handlePlaceChange(e) {
+    e.preventDefault();
+    this.props.onPlaceChange(e.target.value);
   }
 
   handlePlaceSubmit(e) {
-    e.preventDedfault();
+    e.preventDefault();
     this.props.history.push(`/?place=${this.state.place}`);
     this.startSearch();
   }
@@ -98,12 +99,13 @@ class SearchPage extends Component {
   render() {
     return (
       <div className="search-page">
-        <h1 className="search-page-title">ホテル検索</h1>
+        <h1 className="app-title">ホテル検索</h1>
         <SearchForm
-          place={this.state.place}
-          onPlaceChange={place => this.handlePlaceChange(place)}
+          place={this.props.place}
+          onPlaceChange={e => this.handlePlaceChange(e)}
           onSubmit={e => this.handlePlaceSubmit(e)}
         />
+        {/*
         <div className="result-area">
           <Map location={this.state.location} />
           <div className="result-right">
@@ -119,6 +121,7 @@ class SearchPage extends Component {
             />
           </div>
         </div>
+        */}
       </div>
     );
   }
@@ -127,6 +130,8 @@ class SearchPage extends Component {
 SearchPage.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
   location: PropTypes.shape({ search: PropTypes.string }).isRequired,
+  onPlaceChange: PropTypes.func.isRequired,
+  place: PropTypes.string.isRequired,
 };
 
 export default SearchPage;
